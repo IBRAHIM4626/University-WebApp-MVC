@@ -1,0 +1,62 @@
+﻿@using MVC_Day2.ViewModels
+@model List<Course>
+@{
+    ViewData["Title"] = "All Courses";
+}
+
+<h1>All Courses</h1>
+<div id="Card" style="border:2px solid blue">
+
+</div>
+<a href="/Course/Add">Add New</a>
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Degree</th>
+        <th>MinDegree</th>
+        <th>Hours</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Degree</td>
+            <td>@item.MinDegree</td>
+            <td>@item.Hours</td>
+            <td><a href="/Course/Details?id=@item.Id">Details</a></td>
+            <td>
+                <a href="/Course/Edit/@item.Id">Edit</a>
+            </td>
+            <td>
+                <a asp-controller="Course" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"> Delete </a>
+            </td>
+            <td>
+                <!--Full Request (HttpRequest) ==> HttpResponse-->
+                <a href="/Course/GetCrsCardPartial/@item.Id" onclick="GetCard(@item.Id)">Get Card</a>
+                @* <input type="button" onclick="GetCard(@item.Id)" value="get Card"/> *@
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script>
+    function GetCard(CrsId){
+        event.preventDefault(); //href
+        $.ajax({
+            url: "/Course/GetCrsCardPartial/" + CrsId,
+            success: function (result) {
+                console.log(result)
+                $("#Card").html(result); //$==> getelementbyID
+            }
+        });
+    }
+</script>

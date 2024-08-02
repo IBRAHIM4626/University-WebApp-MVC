@@ -1,0 +1,13 @@
+﻿<!--_CrsCardPartial Strong Type-->
+@model Course
+
+<div>
+
+    <h2>Id: @Model.Id</h2>
+    <h2>CourseName: @Model.Name</h2>
+    <h2>Degree: @Model.Degree</h2>
+    <h2>MinDegree: @Model.MinDegree</h2>
+    <h2> @Model.Department?.Name</h2>
+    <a asp-controller="Course" asp-action="Index" class="btn btn-primary"> Back To List </a>
+
+</div>

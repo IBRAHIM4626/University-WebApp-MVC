@@ -1,0 +1,78 @@
+﻿@using MVC_Day2.ViewModels
+@model AddInstructorWithDeptListAnd_CourseListViewModel
+@{
+    ViewData["Title"] = "Add";
+    SelectList deptItems = new SelectList(Model.DeptList, "Id", "Name");
+}
+
+<h1>Add</h1>
+
+<form action="/Instructor/SaveAdd" method="post">
+    <div>
+        <label>Name</label>
+        <input name="Name" id="Name" value="@Model?.Name" class="form form-control"/>
+    </div>
+    <div>
+        <label>ImageUrl</label>
+        <input name="ImageUrl" id="ImageUrl" value="@Model?.ImageUrl" class="form form-control" />
+    </div>
+    <div>
+        <label>Salary</label>
+        <input name="Salary" id="Salary" value="@Model?.Salary" class="form form-control" />
+    </div>
+    <div>
+        <label>Address</label>
+        <input name="Address" id="Address" value="@Model?.Address" class="form form-control" />
+    </div>
+    <div>
+        <label asp-for="DepartmentId"></label>
+        <select asp-for="DepartmentId" class="form form-control" asp-items="deptItems" onchange="GetCourses()">
+            <option value="0"> -- select Department -- </option>
+        </select>
+
+@*         <input class="form form-control" name="DepartmentId" value="@Model.DepartmentId" id="DepartmentId" />
+     *@ @* <select class="form form-control" name="DepartmentId" id="DepartmentId" onchange="GetCourses()">
+            @foreach (var deptItem in Model?.DeptList)
+            {
+                <option value="0"> -- select Department -- </option>
+                if(Model.DepartmentId == deptItem.Id)
+                {
+                    <option value="@deptItem?.Id" selected>@deptItem?.Name</option>
+                }
+                else
+                {
+                    <option value="@deptItem?.Id">@deptItem?.Name</option>
+                }
+            }
+        </select> *@
+    </div>
+    <div>
+        <label >Course Name</label>
+        <select class="form form-control" asp-for="CrsId">
+           
+        </select>
+    </div>
+    <br />
+    <input type="submit" value="Create" class="btn btn-success"/>
+</form>
+<br />
+<a href="/Instructor/Index">Back To List</a>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    function GetCourses() {
+        var deptElem = document.getElementById("DepartmentId");
+        var selectElem = document.getElementById("CrsId");
+        selectElem.innerHTML = "";
+        var selectDept = deptElem.value;
+        $.ajax({
+            url: "/Instructor/GetCoursesByDept?deptId=" + selectDept,
+            success: function (result) {
+                for (let item of result) {
+                    //console.log(result);
+                    selectElem.innerHTML += "<option value=" + item.id + ">" + item.name + "</option>";
+                }
+            }
+        });
+    }
+</script>

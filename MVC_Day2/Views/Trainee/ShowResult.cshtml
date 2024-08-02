@@ -1,0 +1,20 @@
+﻿@using MVC_Day2.ViewModels
+@model TraineeResultsViewModel
+@{
+    ViewData["Title"] = "ShowResult";
+}
+<style>
+    .red{
+        color:red;
+    }
+
+    .green {
+        color: green;
+    }
+</style>
+<h1>ShowResult</h1>
+
+<h2 class="@Model.Color">@Model.TraineeName</h2>
+<h2 class="@Model.Color">@Model.CourseName</h2>
+<h2 class="@Model.Color">@Model.Degree</h2>
+

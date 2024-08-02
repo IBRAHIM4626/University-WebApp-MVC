@@ -1,0 +1,21 @@
+﻿@model Department
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h1>Add</h1>
+
+<form method="post" action="/Department/SaveAdd">
+    <div>
+        <label>Name</label>
+        <input name="Name" id="Name" value="@Model?.Name" class="form form-control" type="text" />
+
+    </div>
+    <div>
+        <label asp-for="ManagerName"></label>
+        <input asp-for="ManagerName" class="form form-control" />
+    </div>
+    <input type="submit" value="Create" class="btn btn-success" />
+</form>
+
+<a href="/Department/Index">Back To List</a>

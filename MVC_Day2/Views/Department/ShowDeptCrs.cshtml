@@ -1,0 +1,44 @@
+﻿@model List<Department>
+@{
+    ViewData["Title"] = "ShowDeptCrs";
+    SelectList deptList = new SelectList(Model, "Id", "Name");
+}
+
+<h1>ShowDeptCrs</h1>
+
+<form>
+    <select name="dept" id="dept"
+            class="form form-control" asp-items="deptList"
+            onchange="GetCourses()"
+    >
+        <option value="0"> -- select Department -- </option>
+    </select>
+</form>
+
+<ul id="Crs">
+
+</ul>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    function GetCourses(){
+        var deptElem = document.getElementById("dept");
+        var ulElem = document.getElementById("Crs");
+        ulElem.innerHTML = "";
+        var selectDept = deptElem.value;
+        //console.log(selectDept);
+        // var DeptElem = $("#dept");
+        // var selectDept = DeptElem.val();
+        //Ajax call endpoint take id ==> List<Courses>
+       
+        $.ajax({
+            url: "/Department/GetCoursesByDept?deptId=" + selectDept,
+            success: function (result) {
+                //console.log(result)
+                for (let item of result) {
+                    ulElem.innerHTML += `<li> ${item.name} </li>`;
+                }
+            }
+        });
+    }
+</script>

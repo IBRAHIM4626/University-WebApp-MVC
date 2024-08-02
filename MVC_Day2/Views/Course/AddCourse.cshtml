@@ -1,0 +1,87 @@
+﻿@using MVC_Day2.ViewModels
+
+@model AddCoursewithDeptListViewModel
+@{
+    ViewData["Title"] = "Add";
+    SelectList deptItems = new SelectList(Model.DeptList, "Id", "Name");
+}
+
+<h1>Add</h1>
+
+@* <form action="/Course/SaveAdd" method="post"> *@
+
+<form asp-controller="Course" asp-action="SaveAdd">
+    <div asp-validation-summary="All"></div>
+    
+    <div>   
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div>
+        @* Mix *@
+        <label asp-for="Degree"></label>
+        <input asp-for="Degree" class="form form-control" />
+        <span asp-validation-for="Degree" class="text-danger"></span>
+
+       @*  @Html.LabelFor(c => c.Degree)
+        @Html.EditorFor(c => c.Degree) *@
+    </div>
+    <div>
+        <label asp-for="MinDegree"></label>
+        <input asp-for="MinDegree" class="form form-control" />
+        <span asp-validation-for="MinDegree" class="text-danger"></span>
+
+    </div>
+    <div>
+        <label asp-for="Hours"></label>
+        <input asp-for="Hours" class="form form-control" />
+        <span asp-validation-for="Hours" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="DepartmentId"></label>
+        <select asp-for="DepartmentId" class="form form-control" asp-items="deptItems">
+            <option value="0"> -- select Department -- </option>
+        </select>
+        <span asp-validation-for="DepartmentId" class="text-danger"></span>
+    </div>
+    <br />
+    <input type="submit" value="Create" class="btn btn-success" />
+</form>
+
+@* <a href="/Course/Index">Back To List</a> *@
+@* @Html.ActionLink("Back To List", "Index", "Course") *@
+<a asp-controller="Course" asp-action="Index">Back To List</a>
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
+@* Tag Helpers *@
+
+@* <label for="Name">Name</label> *@
+@* @Html.LabelFor(c => c.Name) *@
+@*      @Html.TextBoxFor(c => c.Name, new { @class = "form form-control" })*@
+
+@* @Html.EditorFor(c => c.Name) *@
+@* <input name="Name" id="Name" value="@Model?.Name" class="form form-control" />
+ *@
+
+@* @Html.LabelFor(c => c.DepartmentId)
+<select class="form form-control" name="DepartmentId">
+    @foreach (var deptItem in Model?.DeptList)
+    {
+        if (Model.DepartmentId == deptItem.Id)
+        {
+            <option value="@deptItem?.Id" selected>@deptItem?.Name</option>
+        }
+        else
+        {
+            <option value="@deptItem?.Id">@deptItem?.Name</option>
+        }
+    }
+</select> *@

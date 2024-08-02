@@ -1,0 +1,38 @@
+﻿@using MVC_Day2.ViewModels
+
+@model AddCoursewithDeptListViewModel
+@{
+
+    ViewData["Title"] = "Edit";
+    SelectList deptItems = new SelectList(Model.DeptList,"Id", "Name");
+}
+
+<h1>Edit</h1>
+<form asp-controller="Course" asp-action="SavEdit" asp-route-id="@Model.Id" method="post">
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form form-control" />
+    </div>
+    <div>
+        <label asp-for="Degree"></label>
+        <input asp-for="Degree" class="form form-control" />
+    </div>
+    <div>
+        <label asp-for="MinDegree"></label>
+        <input asp-for="MinDegree" class="form form-control" />
+    </div>
+    <div>
+        <label asp-for="Hours"></label>
+        <input asp-for="Hours" class="form form-control" />
+    </div>
+    <div>
+        <label asp-for="DepartmentId"></label>
+        <select asp-for="DepartmentId" asp-items="deptItems" class="form form-control">
+            <option value="0"> -- select Department -- </option>
+        </select>
+    </div>
+
+    <input type="submit" value="Save" class="btn btn-success" />
+</form>
+
+<a href="/Course/Index">Back To List</a>

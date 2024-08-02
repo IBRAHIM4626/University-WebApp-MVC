@@ -1,0 +1,37 @@
+﻿@model Instructor
+@{
+    ViewData["Title"] = "instDetails";
+}
+
+<h1>instDetails</h1>
+
+        <img src="/Images/@Model.ImageUrl" style="width:130px;height:130px" />
+<h2>@Model.Id</h2>
+@* <h2 style="background-color:@ViewData["clr"]">@Model.Name</h2>*@
+<h2 style="background-color:@ViewBag.clr">@Model.Name</h2>
+<h2>@Model.Salary</h2>
+<h2>@Model.Address</h2>
+        
+     <a asp-controller="Instructor" asp-action="Index" class="btn btn-primary"> View All </a>
+   
+
+@* <h2>@ViewData["Message"]</h2>
+<select class="form form-control">
+    @foreach (var item in ViewBag.Branch) //(List<string>)ViewData["Branch"] casting from object to string
+    {
+        <option>@item</option>
+    }
+
+</select> *@
+@* 
+<h2>@(int.Parse(ViewData["no"].ToString())+10)</h2>
+<h2>@(ViewBag.no + 10)</h2> *@
+
+<!-- Problem ViewData :
+     Type Casting
+     Magic string "Key" -> NuLL throw exception
+-->
+<!-- Problem ViewBag :
+     Type Casting Runtime
+     Magic string "Key" -> NuLL throw exception
+-->
